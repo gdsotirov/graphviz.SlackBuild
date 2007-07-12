@@ -1,0 +1,12 @@
+graphviz: Graphviz - Graph Visualization Software
+graphviz:
+graphviz: Graphviz is graph visualization software. Graph visualization is a
+graphviz: way of representing structural information as diagrams of abstract
+graphviz: graphs and networks. Graphviz has several main graph layout
+graphviz: programs. It also has web and interactive graphical interfaces,
+graphviz: auxiliary tools, libraries, and language bindings.
+graphviz: Graphviz has many useful features for concrete diagrams, such as
+graphviz: options for colors, fonts, tabular node layouts, line styles,
+graphviz: hyperlinks, and custom shapes.
+graphviz:
+graphviz: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
