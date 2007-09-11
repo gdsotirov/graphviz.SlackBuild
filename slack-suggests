@@ -1,8 +1,9 @@
 guile >= 1.8
-jdk >= 1.5.0
+jdk >= 6u2
+lua >= 5.1.2
 perl >= 5.8
-php >= 4.4
-python >= 2.4
-ruby >= 1.8.4
-tk >= 8.4.13
-tcl >= 8.4.13
+php >= 5.2
+python >= 2.5
+ruby >= 1.8.6
+tk >= 8.4.15
+tcl >= 8.4.15
