@@ -7,20 +7,13 @@
 . ../slack-package.conf
 
 NAME=graphviz
-VERSION=2.12
+VERSION=2.14.1
 BUILD=1
 
 cd $TMP
 tar -zxvf $CWD/$NAME-$VERSION.tar.gz
 SRC=$TMP/$NAME-$VERSION
 cd $SRC
-
-# Apply patches
-# This patch 'correctly' detects php support in graphviz
-zcat $CWD/$NAME-$VERSION-php_detect.patch.gz | patch -p1 -b -z.orig
-# This patch was taken from http://www.linuxfromscratch.org/patches/blfs/svn/graphviz-2.12-gd_fixes-1.patch
-zcat $CWD/$NAME-$VERSION-gd_fixes-1.patch.gz | patch -Np1
-
 fix_source
 
 CFLAGS=$SLKCFLAGS \
@@ -42,30 +35,16 @@ bin_perms $PKG
 ( cd $SRC; create_docs $PKG $NAME-$VERSION )
 
 gzip_man $PKG
-# Re-link to gziped man pages
-( cd $PKG/usr/man/man1
-  rm -f fdp.1
-  ln -sf dot.1.gz fdp.1.gz
-  rm -f neato.1
-  ln -sf dot.1.gz neato.1.gz
-  rm -f twopi.1
-  ln -sf dot.1.gz twopi.1.gz
-  rm -f circo.1
-  ln -sf dot.1.gz circo.1.gz
-  rm -f dot2gxl.1
-  ln -sf gxl2dot.1.gz dot2gxl.1.gz
-)
 
 mkdir -p $PKG/install
 install -m 644 $CWD/slack-desc     $PKG/install
 install -m 644 $CWD/slack-required $PKG/install
 install -m 644 $CWD/slack-suggests $PKG/install
+
 mkdir -p $PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 644 $CWD/slack-desc       $PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 644 $CWD/slack-required   $PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 644 $CWD/slack-suggests   $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/$NAME-$VERSION-php_detect.patch.gz $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/$NAME-$VERSION-gd_fixes-1.patch.gz $PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 644 $CWD/$NAME.SlackBuild $PKG/usr/src/slackbuilds/$NAME-$VERSION
 
 cd $PKG
