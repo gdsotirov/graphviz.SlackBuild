@@ -7,7 +7,7 @@
 . ../slack-package.conf
 
 NAME=graphviz
-VERSION=2.14.1
+VERSION=2.18
 BUILD=1
 
 cd $TMP
@@ -19,9 +19,24 @@ fix_source
 CFLAGS=$SLKCFLAGS \
 CXXFLAGS=$SLKCFLAGS \
 ./configure --build=$ARCH-slackware-linux \
+            --host=$ARCH-slackware-linux \
             --prefix=/usr \
-	    --with-fontconfigincludedir=/usr/X11R6/include \
-	    --with-fontconfiglibdir=/usr/X11R6/lib
+            --mandir=/usr/man \
+#           --docdir=/usr/doc/$NAME-$VERSION \ # seems to be ignored
+            --enable-static=no \
+            --enable-shared=yes \
+            --enable-swig=yes \
+            --enable-guile=yes \
+            --enable-java=yes \
+            --enable-lua=yes \
+            --enable-perl=yes \
+            --enable-php=yes \
+            --enable-python=yes \
+            --enable-python25=no \
+            --enable-ruby=yes \
+            --enable-tcl=yes
+#           --with-fontconfigincludedir=/usr/X11R6/include \
+#           --with-fontconfiglibdir=/usr/X11R6/lib
 
 make all
 
@@ -33,19 +48,21 @@ make DESTDIR=$PKG install
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
 ( cd $SRC; create_docs $PKG $NAME-$VERSION )
-
+( cd $PKG
+  mv usr/share/$NAME/doc/* usr/doc/$NAME-$VERSION
+  rmdir usr/share/$NAME/doc )
 gzip_man $PKG
 
 mkdir -p $PKG/install
-install -m 644 $CWD/slack-desc     $PKG/install
-install -m 644 $CWD/slack-required $PKG/install
-install -m 644 $CWD/slack-suggests $PKG/install
+install -m 644 $CWD/slack-desc     $PKG/install/slack-desc
+install -m 644 $CWD/slack-required $PKG/install/slack-required
+install -m 644 $CWD/slack-suggests $PKG/install/slack-suggests
 
 mkdir -p $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/slack-desc       $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/slack-required   $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/slack-suggests   $PKG/usr/src/slackbuilds/$NAME-$VERSION
-install -m 644 $CWD/$NAME.SlackBuild $PKG/usr/src/slackbuilds/$NAME-$VERSION
+install -m 644 $CWD/slack-desc       $PKG/usr/src/slackbuilds/$NAME-$VERSION/slack-desc
+install -m 644 $CWD/slack-required   $PKG/usr/src/slackbuilds/$NAME-$VERSION/slack-required
+install -m 644 $CWD/slack-suggests   $PKG/usr/src/slackbuilds/$NAME-$VERSION/slack-suggests
+install -m 644 $CWD/$NAME.SlackBuild $PKG/usr/src/slackbuilds/$NAME-$VERSION/$NAME.SlackBuild
 
 cd $PKG
 PKGNAME=$NAME-$VERSION-$ARCH-$BUILD$MYIN
