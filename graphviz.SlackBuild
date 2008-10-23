@@ -7,7 +7,7 @@
 . ../slack-package.conf
 
 NAME=graphviz
-VERSION=2.18
+VERSION=2.20.3
 BUILD=1
 
 cd $TMP
@@ -38,12 +38,12 @@ CXXFLAGS=$SLKCFLAGS \
 #           --with-fontconfigincludedir=/usr/X11R6/include \
 #           --with-fontconfiglibdir=/usr/X11R6/lib
 
-make all
+make -j4 all || exit 1
 
 PKG="$TMP/package-$NAME"
 mkdir -p $PKG
 
-make DESTDIR=$PKG install
+make DESTDIR=$PKG install || exit 2
 
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
