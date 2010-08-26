@@ -2,20 +2,44 @@
 #
 # SlackBuild for Graphviz
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
+# Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
 
 . ../slack-package.conf
 
 NAME=graphviz
-VERSION=2.26.0
-BUILD=1
+VERSION=2.26.3
+BUILD=${BUILD:-1}
 
+TMP=${TMP:-/tmp}
+CWD=${CWD:-`pwd`}
+
+
+if [ ! -e $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+SRC=$TMP/$NAME-$VERSION
+if [ -e $SRC -a -d $SRC ]; then
+  echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
+  exit 1
+fi
+
+PKG=$TMP/package-$NAME
+if [ -e $PKG -a -d $PKG ]; then
+  echo "Package creation directory '$PKG' already exists! Please, move it or remove it."
+  exit 2
+fi
+mkdir -p $PKG
+
+# Extract the source
 cd $TMP
-tar -zxvf $CWD/$NAME-$VERSION.tar.gz
+tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 1
 SRC=$TMP/$NAME-$VERSION
 cd $SRC
 fix_source
 
+# Configure
 CFLAGS=$SLKCFLAGS \
 CXXFLAGS=$SLKCFLAGS \
 ./configure --build=$ARCH-slackware-linux \
@@ -37,13 +61,11 @@ CXXFLAGS=$SLKCFLAGS \
 #           --with-fontconfigincludedir=/usr/X11R6/include \
 #           --with-fontconfiglibdir=/usr/X11R6/lib
 
+# Build & install
 make -j4 all || exit 1
-
-PKG="$TMP/package-$NAME"
-mkdir -p $PKG
-
 make DESTDIR=$PKG install || exit 2
 
+# Prepare
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
 ( cd $SRC; create_docs $PKG $NAME-$VERSION )
