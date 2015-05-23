@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: graphviz.SlackBuild,v 1.11 2015/05/16 19:28:52 gsotirov Exp $
+# $Id: graphviz.SlackBuild,v 1.12 2015/05/23 18:03:06 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=graphviz
-VERSION=2.34.0
+VERSION=2.38.0
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -78,7 +78,7 @@ CXXFLAGS=$SLKCFLAGS \
 
 # Build & install
 make V=1 -j4 all || exit 5
-make DESTDIR=$PKG install || exit 6
+make V=1 DESTDIR=$PKG install || exit 6
 
 # Prepare
 bin_perms $PKG
