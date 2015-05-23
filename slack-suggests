@@ -1,9 +1,9 @@
-guile >= 1.8.8
+guile >= 2.0.9
 jdk >= 6u25
 lua >= 5.1.4
-perl >= 5.16
+perl >= 5.18
 python >= 2.7
 ruby >= 1.9.3
-swig >= 2.0.12
-tk >= 8.5.11
-tcl >= 8.5.11
+swig >= 3.0.5
+tk >= 8.6.1
+tcl >= 8.6.1
