@@ -19,7 +19,7 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: graphviz.SlackBuild,v 1.9 2012/08/20 13:41:10 gsotirov Exp $
+# $Id: graphviz.SlackBuild,v 1.9.2.1 2018/02/17 16:27:00 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -62,7 +62,7 @@ CXXFLAGS=$SLKCFLAGS \
             --host=$ARCH-slackware-linux \
             --prefix=/usr \
             --mandir=/usr/man \
-#           --docdir=/usr/doc/$NAME-$VERSION # seems to be ignored
+            --libdir=/usr/lib${LIBDIRSUFFIX} \
             --enable-static=no \
             --enable-shared=yes \
             --enable-swig=yes \
