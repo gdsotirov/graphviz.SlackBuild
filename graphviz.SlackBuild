@@ -5,7 +5,7 @@
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
 
-. ../slack-package.conf
+. ../../slack-package.conf
 
 NAME=graphviz
 VERSION=2.26.3
@@ -46,6 +46,7 @@ CXXFLAGS=$SLKCFLAGS \
             --host=$ARCH-slackware-linux \
             --prefix=/usr \
             --mandir=/usr/man \
+            --libdir=/usr/lib${LIBDIRSUFFIX} \
 #           --docdir=/usr/doc/$NAME-$VERSION # seems to be ignored
             --enable-static=no \
             --enable-shared=yes \
