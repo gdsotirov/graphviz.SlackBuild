@@ -1,5 +1,5 @@
 guile >= 2.0.9
-jdk >= 6u25
+jdk >= 8u112
 lua >= 5.1.4
 perl >= 5.18
 python >= 2.7
