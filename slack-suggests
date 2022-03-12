@@ -1,8 +1,9 @@
-guile >= 2.0.11
-jdk >= 8u112
+gcc-go >= 11.2.0
+guile >= 3.0.7
+jdk
 lua >= 5.2.4
-perl >= 5.22
-python >= 2.7
-ruby >= 2.2.5
-swig >= 3.0.10
-tcl >= 8.6.5
+perl >= 5.34.0
+python >= 3.9.10
+ruby >= 3.0.3
+swig >= 4.0.2
+tcl >= 8.6.12
